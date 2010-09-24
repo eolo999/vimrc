@@ -2,13 +2,15 @@
 "
 " Use Vim settings, rather then Vi settings (much better!).
 set nocompatible
-" no backup files
+" backup files out of the way
 set nobackup
+set backupdir=~/.vim/backup/
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 set expandtab
 set smarttab
 set sw=4
+set ts=4
 set autoindent
 set history=150
 set spelllang=en,it
@@ -32,7 +34,7 @@ set wildmenu
 set mouse=a
 " Switch syntax highlighting on
 " Also switch on highlighting the last used search pattern.
-syntax on
+syntax enable
 set hlsearch
 " always show status line at startup
 set laststatus=2
@@ -42,11 +44,15 @@ set dictionary+=/usr/share/dict/british-english-huge
 filetype plugin indent on
 colorscheme tango
 
+let g:SuperTabSetDefaultCompletionType = "context"
+let g:SuperTabRetainCompletionDuration = "insert"
+
 "" Keyboard mappings
 "" =================
 
-" CleverTab for completions
-inoremap <Tab> <C-R>=CleverTab()<cr>
+nmap <space> <PageDown>
+map <C-Right> gt
+map <C-Left> gT
 
 " F-Keys mapping
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<CR>
@@ -63,13 +69,13 @@ nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 nnoremap <leader>3 yypVr'
 nnoremap <leader>4 yypVr`
-vmap <leader>b :call BulletList()<cr>
+vmap <silent> <leader>b :call BulletList()<cr>
     " remove highlighted search
-nnoremap <leader><space> :let @/=''<cr>
+nnoremap <silent> <leader><space> :let @/=''<cr>
     " toggle status line
-nnoremap <leader>s  :call ToggleStatusLine()<cr>
+nnoremap <silent> <leader>s  :call ToggleStatusLine()<cr>
     " toggle spell check
-nnoremap <leader>c  :set spell!<cr>
+nnoremap <silent> <leader>c  :set spell!<cr>
 
 "" Filetypes
 "" =========

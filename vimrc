@@ -1,20 +1,22 @@
 " Edoardo Batini <eodbat@gmail.com> .vimrc file.
 "
-" Use Vim settings, rather then Vi settings (much better!).
+" Use Vim settings
 set nocompatible
+" fast terminal
+set ttyfast
 " backup files out of the way
 set nobackup
 set backupdir=~/.vim/backup/
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-set expandtab
-set smarttab
 set sw=4
 set ts=4
+set expandtab
+set smarttab
 set autoindent
 set history=150
 set spelllang=en,it
-set spellsuggest=9
+set spellsuggest=5
 set ruler
 set number
 " Show (partial) command
@@ -28,8 +30,8 @@ set smartcase
 set incsearch
 set wildmenu
 " Show special chars for tab & eol
-"set list
-"set listchars=tab:▸\ ,eol:¬
+set list
+set listchars=tab:▸\ ,eol:¬
 " Enable mouse
 set mouse=a
 " Switch syntax highlighting on
@@ -47,6 +49,15 @@ colorscheme tango
 let g:SuperTabSetDefaultCompletionType = "context"
 let g:SuperTabRetainCompletionDuration = "insert"
 
+" set cursorline
+hi CursorLine term=none cterm=none ctermbg=0
+set cursorline
+
+"" Commands
+"" ========
+command Q q
+command W w
+
 "" Keyboard mappings
 "" =================
 
@@ -55,6 +66,7 @@ map <C-Right> gt
 map <C-Left> gT
 
 " F-Keys mapping
+imap <F1> <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<CR>
 imap <F3> <C-R>="#!/usr/bin/env python"<CR>
 imap <F4> <C-R>="if __name__ == '__main__':"<CR>
@@ -62,6 +74,7 @@ imap <F6> <C-R>=strftime("%d-%m-%Y")<CR>
 map  <F10> :!gcc % && ./a.out<CR>
 
 " Leader shortcuts
+map <leader>t :tabe 
     " Insert filename
 inoremap <leader>f <C-R>=expand("%:t")<CR>
     " reStructuredText title/section/subsection/etc. shortcuts
@@ -73,9 +86,11 @@ vmap <silent> <leader>b :call BulletList()<cr>
     " remove highlighted search
 nnoremap <silent> <leader><space> :let @/=''<cr>
     " toggle status line
-nnoremap <silent> <leader>s  :call ToggleStatusLine()<cr>
+nnoremap <silent> <leader>l  :call ToggleStatusLine()<cr>
     " toggle spell check
-nnoremap <silent> <leader>c  :set spell!<cr>
+nnoremap <silent> <leader>s  :set spell!<cr>
+    " toggle line numbers
+nnoremap <silent> <leader>n :set nu!<cr>
 
 "" Filetypes
 "" =========
@@ -114,12 +129,4 @@ function! BulletList()
     let lineno = line(".")
     call setline(lineno, "* " . getline(lineno))
 endfunction
-
-" Project management
-" ==================
-
-" Load session file if available
-" removed becouse doesn't check for file existence and raise an error while
-" opening vim
-" silent source! Session.vim
 

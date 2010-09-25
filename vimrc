@@ -1,57 +1,71 @@
 " Edoardo Batini <eodbat@gmail.com> .vimrc file.
+" Sat Sep 25 17:39:35 CEST 2010
 "
 " Use Vim settings
 set nocompatible
+
 " fast terminal
 set ttyfast
+
+" Enable mouse
+set mouse=a
+
 " backup files out of the way
 set nobackup
 set backupdir=~/.vim/backup/
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-set sw=4
-set ts=4
+
+" Indentations and tabs
+set autoindent
+set shiftwidth=4
+set sts=4
 set expandtab
 set smarttab
-set autoindent
-set history=150
-set spelllang=en,it
-set spellsuggest=5
-set ruler
+
+
+"" Appearance
+"" ==========
+syntax enable
+colorscheme tango
+" Cursorline override
+hi CursorLine term=none cterm=none ctermbg=0
+set cursorline
+" status line
+set laststatus=2
+set statusline=%F%m%r%h%w\ FORMAT=%{&ff}\ TYPE=%Y\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+" line numbers
 set number
-" Show (partial) command
-set showcmd
-" Show matching brackets
-set showmatch
+" Show special chars for tab & eol
+set list
+set listchars=tab:▸\ ,eol:¬
+
+"" Searching
+"" =========
 " Do case insensitive matching
 set ignorecase
 " Do smart case matching
 set smartcase
 set incsearch
-set wildmenu
-" Show special chars for tab & eol
-set list
-set listchars=tab:▸\ ,eol:¬
-" Enable mouse
-set mouse=a
-" Switch syntax highlighting on
-" Also switch on highlighting the last used search pattern.
-syntax enable
+" highlight last used search pattern.
 set hlsearch
-" always show status line at startup
-set laststatus=2
-set statusline=%F%m%r%h%w\ FORMAT=%{&ff}\ TYPE=%Y\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+
+"" Language spell and dictionaries
+"" ===============================
+set spelllang=en,it
+set spellsuggest=5
 " Use English dictionary for word completion
-set dictionary+=/usr/share/dict/british-english-huge
-filetype plugin indent on
-colorscheme tango
+set dictionary+=/usr/share/dict/british-english
 
-let g:SuperTabSetDefaultCompletionType = "context"
-let g:SuperTabRetainCompletionDuration = "insert"
-
-" set cursorline
-hi CursorLine term=none cterm=none ctermbg=0
-set cursorline
+"" Unclassified
+"" ============
+" Show (partial) command
+set showcmd
+" Show matching brackets
+set showmatch
+set wildmenu
+set history=150
 
 "" Commands
 "" ========
@@ -60,11 +74,9 @@ command W w
 
 "" Keyboard mappings
 "" =================
-
 nmap <space> <PageDown>
 map <C-Right> gt
 map <C-Left> gT
-
 " F-Keys mapping
 imap <F1> <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<CR>
@@ -72,7 +84,6 @@ imap <F3> <C-R>="#!/usr/bin/env python"<CR>
 imap <F4> <C-R>="if __name__ == '__main__':"<CR>
 imap <F6> <C-R>=strftime("%d-%m-%Y")<CR>
 map  <F10> :!gcc % && ./a.out<CR>
-
 " Leader shortcuts
 map <leader>t :tabe 
     " Insert filename
@@ -95,6 +106,7 @@ nnoremap <silent> <leader>n :set nu!<cr>
 "" Filetypes
 "" =========
 
+filetype plugin indent on
 autocmd BufRead,BufNewFile *.log set filetype=syslog
 autocmd BufRead,BufNewFile *.txt set filetype=rst
 autocmd filetype lisp,scheme,art setlocal equalprg=lispindent.lisp 
@@ -115,18 +127,16 @@ function! ToggleStatusLine()
     endif
 endfunction
 
-" Clever Tab Function
-function! CleverTab()
-    if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-        return "\<Tab>"
-    else
-        return "\<C-N>"
-    endif
-endfunction
-
 " Bullet List
 function! BulletList()
     let lineno = line(".")
     call setline(lineno, "* " . getline(lineno))
 endfunction
+
+"" Plugins
+"" =======
+" Supertab plugin configuration
+" does it really changes things?
+let g:SuperTabSetDefaultCompletionType = "context"
+let g:SuperTabRetainCompletionDuration = "insert"
 

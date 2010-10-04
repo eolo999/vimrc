@@ -1,40 +1,41 @@
 " Edoardo Batini <eodbat@gmail.com> .vimrc file.
 " Sat Sep 25 17:39:35 CEST 2010
-"
+
+"" General settings
 " Use Vim settings
 set nocompatible
-
 " fast terminal
 set ttyfast
-
 " Enable mouse
 set mouse=a
-
+" set virtualedit
 " backup files out of the way
 set nobackup
 set backupdir=~/.vim/backup/
-
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-
 " Indentations and tabs
 set autoindent
 set shiftwidth=4
 set sts=4
 set expandtab
 set smarttab
-
+" folding
+set foldmethod=expr
+set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
 
 "" Appearance
-"" ==========
 syntax enable
-colorscheme tango
+" colorscheme tango
+set t_Co=256
+colorscheme xoria256
 " Cursorline override
-hi CursorLine term=none cterm=none ctermbg=0
+highlight CursorLine cterm=none ctermbg=0
 set cursorline
 " status line
 set laststatus=2
-set statusline=%F%m%r%h%w\ FORMAT=%{&ff}\ TYPE=%Y\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+" set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
+set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n
 " line numbers
 set number
 " Show special chars for tab & eol
@@ -60,6 +61,8 @@ set dictionary+=/usr/share/dict/british-english
 
 "" Unclassified
 "" ============
+set hidden
+set showmode
 " Show (partial) command
 set showcmd
 " Show matching brackets
@@ -69,8 +72,8 @@ set history=150
 
 "" Commands
 "" ========
-command Q q
-command W w
+command! Q q
+command! W w
 
 "" Keyboard mappings
 "" =================
@@ -79,15 +82,19 @@ map <C-Right> gt
 map <C-Left> gT
 " F-Keys mapping
 imap <F1> <ESC>
-imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<CR>
-imap <F3> <C-R>="#!/usr/bin/env python"<CR>
-imap <F4> <C-R>="if __name__ == '__main__':"<CR>
-imap <F6> <C-R>=strftime("%d-%m-%Y")<CR>
-map  <F10> :!gcc % && ./a.out<CR>
+imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
+imap <F3> <C-R>="#!/usr/bin/env python"<cr>
+imap <F4> <C-R>="if __name__ == '__main__':"<cr>
+imap <F6> <C-R>=strftime("%d-%m-%Y")<cr>
+map  <F10> :!gcc % && ./a.out<cr>
 " Leader shortcuts
+let mapleader = ","
 map <leader>t :tabe 
+" cd to the directory containing the file in the buffer
+nmap <silent> <leader>cd :lcd %:h<cr>
     " Insert filename
-inoremap <leader>f <C-R>=expand("%:t")<CR>
+nnoremap <leader>f i<C-R>=expand("%:t:r")<cr><ESC>
+nnoremap <leader>F i<C-R>=expand("%:t")<cr><ESC>
     " reStructuredText title/section/subsection/etc. shortcuts
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
@@ -105,19 +112,25 @@ nnoremap <silent> <leader>n :set nu!<cr>
 
 "" Filetypes
 "" =========
-
 filetype plugin indent on
 autocmd BufRead,BufNewFile *.log set filetype=syslog
 autocmd BufRead,BufNewFile *.txt set filetype=rst
 autocmd filetype lisp,scheme,art setlocal equalprg=lispindent.lisp 
 
-" Templates
-" =========
+"" Templates
+"" =========
 autocmd BufNewFile * silent! 0r ~/.vim/templates/%:e.tpl
 
-" Functions
-" =========
-
+"" Functions
+"" =========
+function! EnableSaveOnTabChange()
+    autocmd TabLeave * w
+endfunction
+function! SaveOnTabChange()
+    if modified
+        :w
+    endif
+endfunction
 " Toggle Status Line
 function! ToggleStatusLine()
     if &laststatus != 2
@@ -126,7 +139,6 @@ function! ToggleStatusLine()
         set laststatus=0
     endif
 endfunction
-
 " Bullet List
 function! BulletList()
     let lineno = line(".")
@@ -139,4 +151,3 @@ endfunction
 " does it really changes things?
 let g:SuperTabSetDefaultCompletionType = "context"
 let g:SuperTabRetainCompletionDuration = "insert"
-

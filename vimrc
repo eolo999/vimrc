@@ -77,7 +77,16 @@ command! W w
 
 "" Keyboard mappings
 "" =================
-nmap <space> <PageDown>
+" disable arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+" Tab movement left/right
 map <C-Right> gt
 map <C-Left> gT
 " F-Keys mapping

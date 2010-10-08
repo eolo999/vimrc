@@ -154,9 +154,3 @@ function! BulletList()
     call setline(lineno, "* " . getline(lineno))
 endfunction
 
-"" Plugins
-"" =======
-" Supertab plugin configuration
-" does it really changes things?
-let g:SuperTabSetDefaultCompletionType = "context"
-let g:SuperTabRetainCompletionDuration = "insert"

@@ -5,6 +5,8 @@
 " Use Vim settings
 set nocompatible
 " fast terminal
+" Use pathogen for plugin organization
+call pathogen#runtime_append_all_bundles()
 set ttyfast
 " Enable mouse
 set mouse=a

@@ -21,8 +21,8 @@ set sts=4
 set expandtab
 set smarttab
 " folding
-set foldmethod=expr
-set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
+set foldmethod=manual
+"set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
 
 "" Appearance
 syntax enable
@@ -154,3 +154,7 @@ function! BulletList()
     call setline(lineno, "* " . getline(lineno))
 endfunction
 
+"" Plugins
+"Yankring
+let g:yankring_history_dir = '$HOME/.vim'
+let g:yankring_history_file = 'yankring_history_file'

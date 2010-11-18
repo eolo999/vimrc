@@ -28,9 +28,9 @@ set foldmethod=manual
 
 "" Appearance
 syntax enable
-" colorscheme tango
-set t_Co=256
-colorscheme xoria256
+colorscheme tango
+"set t_Co=256
+"colorscheme xoria256
 " Cursorline override
 highlight CursorLine cterm=none ctermbg=0
 set cursorline

@@ -88,6 +88,16 @@ imap <up> <nop>
 imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
+cnoremap <C-A> <Home>
+" back one character
+cnoremap <C-B> <Left>
+" delete character under cursor
+cnoremap <C-D> <Del>
+" end of line
+cnoremap <C-E> <End>
+" forward one character
+cnoremap <C-F> <Right>
+
 " Tab movement left/right
 map <C-Right> gt
 map <C-Left> gT

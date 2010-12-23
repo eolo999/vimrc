@@ -28,7 +28,8 @@ set foldmethod=manual
 
 "" Appearance
 syntax enable
-colorscheme tango
+"colorscheme tango
+colorscheme xterm16
 "set t_Co=256
 "colorscheme xoria256
 " Cursorline override
@@ -111,6 +112,7 @@ map  <F10> :!gcc % && ./a.out<cr>
 " Leader shortcuts
 let mapleader = ","
 map <leader>t :tabe 
+map <leader>z :sh<cr>
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<cr>
     " Insert filename
@@ -131,12 +133,17 @@ nnoremap <silent> <leader>s  :set spell!<cr>
     " toggle line numbers
 nnoremap <silent> <leader>n :set nu!<cr>
 
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Fast editing of vimrc
+map <leader>e :e! ~/.vimrc<cr>
 "" Filetypes
 "" =========
 filetype plugin indent on
 autocmd BufRead,BufNewFile *.log set filetype=syslog
+autocmd BufRead,BufNewFile *.pde set filetype=processing
 autocmd BufRead,BufNewFile *.txt set filetype=rst
-autocmd filetype lisp,scheme,art setlocal equalprg=lispindent.lisp 
 
 "" Templates
 "" =========
@@ -167,6 +174,3 @@ function! BulletList()
 endfunction
 
 "" Plugins
-"Yankring
-let g:yankring_history_dir = '$HOME/.vim'
-let g:yankring_history_file = 'yankring_history_file'

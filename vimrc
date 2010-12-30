@@ -39,8 +39,8 @@ set cursorline
 set laststatus=2
 " set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
 set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n
-" line numbers
-set number
+" relative line numbers
+set relativenumber
 " Show special chars for tab & eol
 set list
 set listchars=tab:▸\ ,eol:¬
@@ -111,6 +111,7 @@ imap <F6> <C-R>=strftime("%d-%m-%Y")<cr>
 map  <F10> :!gcc % && ./a.out<cr>
 " Leader shortcuts
 let mapleader = ","
+map <leader>, :b#<cr>
 map <leader>t :tabe 
 map <leader>z :sh<cr>
 " cd to the directory containing the file in the buffer

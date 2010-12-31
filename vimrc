@@ -42,8 +42,8 @@ set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf
 " relative line numbers
 set relativenumber
 " Show special chars for tab & eol
-set list
-set listchars=tab:▸\ ,eol:¬
+"set list
+"set listchars=tab:▸\ ,eol:¬
 
 "" Searching
 "" =========

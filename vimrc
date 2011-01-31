@@ -7,6 +7,7 @@ set nocompatible
 " fast terminal
 " Use pathogen for plugin organization
 call pathogen#runtime_append_all_bundles()
+" Fast terminal
 set ttyfast
 " Enable mouse
 set mouse=a
@@ -19,22 +20,23 @@ set backspace=indent,eol,start
 " Indentations and tabs
 set autoindent
 set shiftwidth=4
-set sts=4
+set softtabstop=4
 set expandtab
 set smarttab
+set textwidth=78
 " folding
 set foldmethod=manual
 "set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
 
 "" Appearance
 syntax enable
-"colorscheme tango
-colorscheme xterm16
+colorscheme desert
+"colorscheme xterm16
 "set t_Co=256
 "colorscheme xoria256
 " Cursorline override
-highlight CursorLine cterm=none ctermbg=0
-set cursorline
+"highlight CursorLine cterm=none ctermbg=0
+"set cursorline
 " status line
 set laststatus=2
 " set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
@@ -98,7 +100,9 @@ cnoremap <C-D> <Del>
 cnoremap <C-E> <End>
 " forward one character
 cnoremap <C-F> <Right>
-
+" Map python omnifunc to ctrl-space
+set omnifunc=pythoncomplete#Complete
+inoremap <Nul> <C-x><C-o>
 " Tab movement left/right
 map <C-Right> gt
 map <C-Left> gT
@@ -111,6 +115,9 @@ imap <F6> <C-R>=strftime("%d-%m-%Y")<cr>
 map  <F10> :!gcc % && ./a.out<cr>
 " Leader shortcuts
 let mapleader = ","
+  " Window splits
+  nnoremap <leader>h <C-w>s
+  nnoremap <leader>v <C-w>v
 map <leader>, :b#<cr>
 map <leader>t :tabe 
 map <leader>z :sh<cr>
@@ -145,6 +152,7 @@ filetype plugin indent on
 autocmd BufRead,BufNewFile *.log set filetype=syslog
 autocmd BufRead,BufNewFile *.pde set filetype=processing
 autocmd BufRead,BufNewFile *.txt set filetype=rst
+autocmd BufRead,BufNewFile *.pde setlocal ft=arduino
 
 "" Templates
 "" =========

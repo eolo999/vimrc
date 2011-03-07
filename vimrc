@@ -24,6 +24,7 @@ set softtabstop=4
 set expandtab
 set smarttab
 set textwidth=78
+set cc=+1
 " folding
 set foldmethod=manual
 "set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
@@ -31,6 +32,7 @@ set foldmethod=manual
 "" Appearance
 syntax enable
 colorscheme desert
+hi ColorColumn ctermbg=lightgrey guibg=lightgrey
 "colorscheme xterm16
 "set t_Co=256
 "colorscheme xoria256
@@ -40,12 +42,14 @@ colorscheme desert
 " status line
 set laststatus=2
 " set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
-set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n
+set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ %{fugitive#statusline()}
+" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
 " relative line numbers
 set relativenumber
 " Show special chars for tab & eol
-"set list
-"set listchars=tab:▸\ ,eol:¬
+set list
+set listchars=tab:▸\ ,eol:¬
 
 "" Searching
 "" =========
@@ -113,6 +117,7 @@ imap <F3> <C-R>="#!/usr/bin/env python"<cr>
 imap <F4> <C-R>="if __name__ == '__main__':"<cr>
 imap <F6> <C-R>=strftime("%d-%m-%Y")<cr>
 map  <F10> :!gcc % && ./a.out<cr>
+map  <F9> :!python %<cr>
 " Leader shortcuts
 let mapleader = ","
   " Window splits
@@ -123,6 +128,8 @@ map <leader>t :tabe
 map <leader>z :sh<cr>
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<cr>
+" remove trailing whitespaces
+nnoremap <leader>t :%s/\s\+$//<cr>
     " Insert filename
 nnoremap <leader>f i<C-R>=expand("%:t:r")<cr><ESC>
 nnoremap <leader>F i<C-R>=expand("%:t")<cr><ESC>

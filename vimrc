@@ -24,17 +24,20 @@ set softtabstop=4
 set expandtab
 set smarttab
 set textwidth=78
-set cc=+1
+"set cc=+1
 " folding
 set foldmethod=manual
 "set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
 
 "" Appearance
 syntax enable
-colorscheme desert
-hi ColorColumn ctermbg=lightgrey guibg=lightgrey
+set t_Co=256
+set background=dark
+colorscheme solarized
+" colorscheme desert256
+"highlight LineNr cterm=NONE ctermfg=cyan ctermbg=Black
+"hi ColorColumn ctermbg=lightgrey guibg=lightgrey
 "colorscheme xterm16
-"set t_Co=256
 "colorscheme xoria256
 " Cursorline override
 "highlight CursorLine cterm=none ctermbg=0
@@ -46,7 +49,8 @@ set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " relative line numbers
-set relativenumber
+" set relativenumber
+set number
 " Show special chars for tab & eol
 set list
 set listchars=tab:▸\ ,eol:¬
@@ -153,6 +157,8 @@ nmap <leader>w :w!<cr>
 
 " Fast editing of vimrc
 map <leader>e :e! ~/.vimrc<cr>
+
+call togglebg#map("<leader>b")
 "" Filetypes
 "" =========
 filetype plugin indent on
@@ -189,4 +195,12 @@ function! BulletList()
     call setline(lineno, "* " . getline(lineno))
 endfunction
 
-"" Plugins
+" Show syntax highlighting groups for word under cursor
+nmap <leader>z :call <SID>SynStack()<CR>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+

@@ -2,11 +2,12 @@
 " Sat Sep 25 17:39:35 CEST 2010
 
 "" General settings
-" Use Vim settings
 set nocompatible
-" fast terminal
 " Use pathogen for plugin organization
+filetype off
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
 " Fast terminal
 set ttyfast
 " Enable mouse
@@ -26,7 +27,8 @@ set smarttab
 set textwidth=78
 "set cc=+1
 " folding
-set foldmethod=manual
+set foldmethod=indent
+set foldlevel=99
 "set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
 
 "" Appearance
@@ -81,7 +83,7 @@ set showcmd
 " Show matching brackets
 set showmatch
 set wildmenu
-set history=150
+set history=500
 
 "" Commands
 "" ========
@@ -127,8 +129,9 @@ let mapleader = ","
   " Window splits
   nnoremap <leader>h <C-w>s
   nnoremap <leader>v <C-w>v
+" go to previous buffer
 map <leader>, :b#<cr>
-map <leader>t :tabe 
+" open a shell
 map <leader>z :sh<cr>
 " cd to the directory containing the file in the buffer
 nmap <silent> <leader>cd :lcd %:h<cr>
@@ -158,7 +161,10 @@ nmap <leader>w :w!<cr>
 " Fast editing of vimrc
 map <leader>e :e! ~/.vimrc<cr>
 
-call togglebg#map("<leader>b")
+" Rope python
+map <leader>j :RopeGotoDefinition<CR>
+map <leader>r :RopeRename<CR>
+
 "" Filetypes
 "" =========
 filetype plugin indent on
@@ -196,11 +202,21 @@ function! BulletList()
 endfunction
 
 " Show syntax highlighting groups for word under cursor
-nmap <leader>z :call <SID>SynStack()<CR>
+nmap <leader>zz :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+
+"" Plugins
+" pyflakes
+let g:pyflakes_use_quickfix = 0
+let g:pep8_map='<F6>'
+" supertab
+au FileType python set omnifunc=pythoncomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+set completeopt=menuone,longest,preview
 

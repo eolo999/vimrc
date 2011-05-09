@@ -119,7 +119,7 @@ imap <F1> <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
 imap <F3> <C-R>="#!/usr/bin/env python"<cr>
 imap <F4> <C-R>="if __name__ == '__main__':"<cr>
-imap <F6> <C-R>=strftime("%d-%m-%Y")<cr>
+imap <F7> <C-R>=strftime("%d-%m-%Y")<cr>
 map  <F10> :!gcc % && ./a.out<cr>
 map  <F9> :!python %<cr>
 " Leader shortcuts

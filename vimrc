@@ -120,6 +120,7 @@ map <C-Left> gT
 imap <F1> <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
 imap <F3> <C-R>="#!/usr/bin/env python"<cr>
+call togglebg#map("<F5>")
 imap <F4> <C-R>="if __name__ == '__main__':"<cr>
 imap <F7> <C-R>=strftime("%d-%m-%Y")<cr>
 map  <F10> :!gcc % && ./a.out<cr>
@@ -129,6 +130,8 @@ let mapleader = ","
   " Window splits
   nnoremap <leader>h <C-w>s
   nnoremap <leader>v <C-w>v
+" Open path under cursor
+nnoremap gF :e <cfile><cr>
 " go to previous buffer
 map <leader>, :b#<cr>
 " open a shell
@@ -145,13 +148,14 @@ nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 nnoremap <leader>3 yypVr'
 nnoremap <leader>4 yypVr`
+nnoremap <leader>5 bi**<ESC>ea**<ESC>
 vmap <silent> <leader>b :call BulletList()<cr>
     " remove highlighted search
 nnoremap <silent> <leader><space> :let @/=''<cr>
     " toggle status line
-nnoremap <silent> <leader>l  :call ToggleStatusLine()<cr>
+nnoremap <silent> <leader>l :call ToggleStatusLine()<cr>
     " toggle spell check
-nnoremap <silent> <leader>s  :set spell!<cr>
+nnoremap <silent> <leader>s :set spell!<cr>
     " toggle line numbers
 nnoremap <silent> <leader>n :set nu!<cr>
 
@@ -165,6 +169,16 @@ map <leader>e :e! ~/.vimrc<cr>
 map <leader>j :RopeGotoDefinition<CR>
 map <leader>r :RopeRename<CR>
 
+" When editing a file, always jump to the last known cursor position.
+" Don't do it when the position is invalid or when inside an event handler
+" (happens when dropping a file on gvim).
+" Also don't do it when the mark is in the first line, that is the default
+" position when opening a file.
+autocmd BufReadPost *
+\   if line("'\"") > 1 && line("'\"") <= line("$") |
+\       exe "normal! g`\"" |
+\   endif
+
 "" Filetypes
 "" =========
 filetype plugin indent on
@@ -172,7 +186,7 @@ autocmd BufRead,BufNewFile *.log set filetype=syslog
 autocmd BufRead,BufNewFile *.pde set filetype=processing
 autocmd BufRead,BufNewFile *.txt set filetype=rst
 autocmd BufRead,BufNewFile *.pde setlocal ft=arduino
-
+autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2
 "" Templates
 "" =========
 autocmd BufNewFile * silent! 0r ~/.vim/templates/%:e.tpl

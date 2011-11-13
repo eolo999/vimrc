@@ -35,7 +35,7 @@ set foldlevel=99
 syntax enable
 set t_Co=256
 set background=dark
-colorscheme solarized
+" colorscheme solarized
 " colorscheme desert256
 "highlight LineNr cterm=NONE ctermfg=cyan ctermbg=Black
 "hi ColorColumn ctermbg=lightgrey guibg=lightgrey
@@ -92,6 +92,7 @@ command! W w
 
 "" Keyboard mappings
 "" =================
+
 " disable arrow keys
 map <up> <nop>
 map <down> <nop>
@@ -101,62 +102,46 @@ imap <up> <nop>
 imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
-cnoremap <C-A> <Home>
-" back one character
-cnoremap <C-B> <Left>
-" delete character under cursor
-cnoremap <C-D> <Del>
-" end of line
-cnoremap <C-E> <End>
-" forward one character
-cnoremap <C-F> <Right>
-" Map python omnifunc to ctrl-space
-set omnifunc=pythoncomplete#Complete
-inoremap <Nul> <C-x><C-o>
-" Tab movement left/right
-map <C-Right> gt
-map <C-Left> gT
-" F-Keys mapping
+
 imap <F1> <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
 imap <F3> <C-R>="#!/usr/bin/env python"<cr>
-call togglebg#map("<F5>")
 imap <F4> <C-R>="if __name__ == '__main__':"<cr>
+call togglebg#map("<F5>")
 imap <F7> <C-R>=strftime("%d-%m-%Y")<cr>
-map  <F10> :!gcc % && ./a.out<cr>
 map  <F9> :!python %<cr>
+map  <F10> :!gcc % && ./a.out<cr>
+
 " Leader shortcuts
 let mapleader = ","
-  " Window splits
-  nnoremap <leader>h <C-w>s
-  nnoremap <leader>v <C-w>v
+" Window splits
+nnoremap <leader>h <C-w>s
+nnoremap <leader>v <C-w>v
 " Open path under cursor
 nnoremap gF :e <cfile><cr>
 " go to previous buffer
 map <leader>, :b#<cr>
 " open a shell
 map <leader>z :sh<cr>
-" cd to the directory containing the file in the buffer
-nmap <silent> <leader>cd :lcd %:h<cr>
 " remove trailing whitespaces
 nnoremap <leader>t :%s/\s\+$//<cr>
-    " Insert filename
+" Insert filename
 nnoremap <leader>f i<C-R>=expand("%:t:r")<cr><ESC>
 nnoremap <leader>F i<C-R>=expand("%:t")<cr><ESC>
-    " reStructuredText title/section/subsection/etc. shortcuts
+" reStructuredText title/section/subsection/etc. shortcuts
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
 nnoremap <leader>3 yypVr'
 nnoremap <leader>4 yypVr`
 nnoremap <leader>5 bi**<ESC>ea**<ESC>
 vmap <silent> <leader>b :call BulletList()<cr>
-    " remove highlighted search
+" remove highlighted search
 nnoremap <silent> <leader><space> :let @/=''<cr>
-    " toggle status line
+" toggle status line
 nnoremap <silent> <leader>l :call ToggleStatusLine()<cr>
-    " toggle spell check
+" toggle spell check
 nnoremap <silent> <leader>s :set spell!<cr>
-    " toggle line numbers
+" toggle line numbers
 nnoremap <silent> <leader>n :set nu!<cr>
 
 " Fast saving
@@ -187,9 +172,10 @@ autocmd BufRead,BufNewFile *.pde set filetype=processing
 autocmd BufRead,BufNewFile *.txt set filetype=rst
 autocmd BufRead,BufNewFile *.pde setlocal ft=arduino
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2
+
 "" Templates
 "" =========
-autocmd BufNewFile * silent! 0r ~/.vim/templates/%:e.tpl
+autocmd BufNewFile *.html,*.py,*.erl silent! 0r ~/.vim/templates/%:e.tpl
 
 "" Functions
 "" =========
@@ -224,13 +210,12 @@ function! <SID>SynStack()
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-
 "" Plugins
 " pyflakes
 let g:pyflakes_use_quickfix = 0
 let g:pep8_map='<F6>'
 " supertab
-au FileType python set omnifunc=pythoncomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-set completeopt=menuone,longest,preview
+"au FileType python set omnifunc=pythoncomplete#Complete
+"let g:SuperTabDefaultCompletionType = "context"
+"set completeopt=menuone,longest,preview
 

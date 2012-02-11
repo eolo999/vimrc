@@ -27,20 +27,20 @@ set smarttab
 set textwidth=78
 "set cc=+1
 " folding
-set foldmethod=indent
+syntax enable
+set foldmethod=syntax
 set foldlevel=99
+"set viewoptions+=cursor,folds
 "set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
 
 "" Appearance
-syntax enable
-set t_Co=256
 set background=dark
-" colorscheme solarized
+colorscheme solarized
+set t_Co=256
+" colorscheme molokai
 " colorscheme desert256
 "highlight LineNr cterm=NONE ctermfg=cyan ctermbg=Black
 "hi ColorColumn ctermbg=lightgrey guibg=lightgrey
-"colorscheme xterm16
-"colorscheme xoria256
 " Cursorline override
 "highlight CursorLine cterm=none ctermbg=0
 "set cursorline
@@ -49,13 +49,12 @@ set laststatus=2
 " set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
 set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ %{fugitive#statusline()}
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-
 " relative line numbers
 " set relativenumber
 set number
 " Show special chars for tab & eol
 set list
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:⇒\ ,eol:¬
 
 "" Searching
 "" =========
@@ -63,9 +62,9 @@ set listchars=tab:▸\ ,eol:¬
 set ignorecase
 " Do smart case matching
 set smartcase
-set incsearch
 " highlight last used search pattern.
 set hlsearch
+set incsearch
 
 "" Language spell and dictionaries
 "" ===============================
@@ -93,7 +92,11 @@ command! W w
 "" Keyboard mappings
 "" =================
 
-" disable arrow keys
+" emacs begin/end of line
+noremap <c-a> <home>
+noremap <c-e> <end>
+
+" radical disable arrow keys
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
@@ -172,6 +175,9 @@ autocmd BufRead,BufNewFile *.pde set filetype=processing
 autocmd BufRead,BufNewFile *.txt set filetype=rst
 autocmd BufRead,BufNewFile *.pde setlocal ft=arduino
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2
+
+"autocmd BufWinLeave *.py mkview
+"au BufWinEnter *.py silent loadview
 
 "" Templates
 "" =========

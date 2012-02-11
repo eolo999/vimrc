@@ -31,3 +31,12 @@
 [submodule "bundle/pydoc"]
 	path = bundle/pydoc
 	url = https://github.com/fs111/pydoc.vim.git
+[submodule "bundle/SimpylFold"]
+	path = bundle/SimpylFold
+	url = https://github.com/tmhedberg/SimpylFold.git
+[submodule "bundle/vim-colors-solarized"]
+	path = bundle/vim-colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "bundle/vim-indent-guides"]
+	path = bundle/vim-indent-guides
+	url = git://github.com/nathanaelkane/vim-indent-guides.git

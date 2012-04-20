@@ -1,18 +1,25 @@
 " Edoardo Batini <eodbat@gmail.com> .vimrc file.
 " Sat Sep 25 17:39:35 CEST 2010
 
-"" General settings
-set nocompatible
+" Preamble --------------------------------------------------------------- {{{
+
 " Use pathogen for plugin organization
 filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
+set nocompatible
 
+" }}}
+" Basic options --------------------------------------------------------- 
+if has("gui_running")
+    set guifont=Ubuntu\ Mono\ 12
+endif
+
+set encoding=utf-8
 " Fast terminal
 set ttyfast
 " Enable mouse
 set mouse=a
-" set virtualedit
 " backup files out of the way
 set nobackup
 set backupdir=~/.vim/backup/
@@ -25,25 +32,11 @@ set softtabstop=4
 set expandtab
 set smarttab
 set textwidth=78
-"set cc=+1
-" folding
 syntax enable
-set foldmethod=syntax
-set foldlevel=99
-"set viewoptions+=cursor,folds
-"set foldexpr=getline(v:lnum)=~'^\\s*$'&&getline(v:lnum+1)=~'\\S'?'<1':1
-
 "" Appearance
+set t_Co=256
 set background=dark
 colorscheme solarized
-set t_Co=256
-" colorscheme molokai
-" colorscheme desert256
-"highlight LineNr cterm=NONE ctermfg=cyan ctermbg=Black
-"hi ColorColumn ctermbg=lightgrey guibg=lightgrey
-" Cursorline override
-"highlight CursorLine cterm=none ctermbg=0
-"set cursorline
 " status line
 set laststatus=2
 " set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
@@ -75,6 +68,8 @@ set dictionary+=/usr/share/dict/british-english
 
 "" Unclassified
 "" ============
+" set visualbell
+set cursorline
 set hidden
 set showmode
 " Show (partial) command
@@ -82,8 +77,12 @@ set showcmd
 " Show matching brackets
 set showmatch
 set wildmenu
-set history=500
+set history=1000
+" set undofile
+" set undoreload=10000
+set lazyredraw
 
+set foldmethod=marker
 "" Commands
 "" ========
 command! Q q
@@ -181,7 +180,7 @@ autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2
 
 "" Templates
 "" =========
-autocmd BufNewFile *.html,*.py,*.erl silent! 0r ~/.vim/templates/%:e.tpl
+autocmd BufNewFile *.py,*.erl silent! 0r ~/.vim/templates/%:e.tpl
 
 "" Functions
 "" =========

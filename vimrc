@@ -106,6 +106,7 @@ imap <left> <nop>
 imap <right> <nop>
 
 imap <F1> <ESC>
+imap jj <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
 imap <F3> <C-R>="#!/usr/bin/env python"<cr>
 imap <F4> <C-R>="if __name__ == '__main__':"<cr>

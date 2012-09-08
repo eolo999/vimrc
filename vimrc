@@ -178,6 +178,8 @@ autocmd BufRead,BufNewFile *.txt set filetype=rst
 autocmd BufRead,BufNewFile *.pde setlocal ft=arduino
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2
 autocmd BufEnter *html :syntax sync fromstart
+autocmd BufRead,BufNewFile   *.gss set filetype=css
+autocmd BufWritePost *.gss call CompileGss()
 "autocmd BufWinLeave *.py mkview
 "au BufWinEnter *.py silent loadview
 
@@ -187,6 +189,13 @@ autocmd BufNewFile *.py,*.erl silent! 0r ~/.vim/templates/%:e.tpl
 
 "" Functions
 "" =========
+function! CompileGss()
+    let current_filename = expand("%")
+    let output_filename = expand("%:r") . ".css"
+    let command = "!java -jar ~/repos/personal/google-closure-tools/closure-stylesheets/build/closure-stylesheets.jar --pretty-print "
+    silent execute command . current_filename . " > " output_filename
+endfunction
+
 function! EnableSaveOnTabChange()
     autocmd TabLeave * w
 endfunction

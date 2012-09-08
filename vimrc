@@ -40,7 +40,7 @@ colorscheme solarized
 " status line
 set laststatus=2
 " set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
-set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ %{fugitive#statusline()}
+"set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ %{fugitive#statusline()}
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " relative line numbers
 " set relativenumber
@@ -107,6 +107,7 @@ imap <right> <nop>
 
 imap <F1> <ESC>
 imap jj <ESC>
+imap kk <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
 imap <F3> <C-R>="#!/usr/bin/env python"<cr>
 imap <F4> <C-R>="if __name__ == '__main__':"<cr>
@@ -117,6 +118,7 @@ map  <F10> :!gcc % && ./a.out<cr>
 
 " Leader shortcuts
 let mapleader = ","
+let maplocalleader = '\'
 " Window splits
 nnoremap <leader>h <C-w>s
 nnoremap <leader>v <C-w>v
@@ -175,7 +177,7 @@ autocmd BufRead,BufNewFile *.pde set filetype=processing
 autocmd BufRead,BufNewFile *.txt set filetype=rst
 autocmd BufRead,BufNewFile *.pde setlocal ft=arduino
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2
-
+autocmd BufEnter *html :syntax sync fromstart
 "autocmd BufWinLeave *.py mkview
 "au BufWinEnter *.py silent loadview
 
@@ -224,4 +226,16 @@ let g:pep8_map='<F6>'
 "au FileType python set omnifunc=pythoncomplete#Complete
 "let g:SuperTabDefaultCompletionType = "context"
 "set completeopt=menuone,longest,preview
+"
+"let g:Powerline_symbols = 'fancy'
+"
+let vimclojure#FuzzyIndent=1
+let vimclojure#HighlightBuiltins=1
+let vimclojure#HighlightContrib=1
+let vimclojure#DynamicHighlighting=1
+let vimclojure#ParenRainbow=1
+let vimclojure#WantNailgun = 1
+let vimclojure#NailgunClient = "/home/eolo999/.vim/bundle/VimClojure/lib/vimclojure-nailgun-client/ng"
 
+" Paredit
+let g:paredit_mode = 0

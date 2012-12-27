@@ -14,7 +14,6 @@ set nocompatible
 if has("gui_running")
     set guifont=Ubuntu\ Mono\ 12
 endif
-
 set encoding=utf-8
 " Fast terminal
 set ttyfast
@@ -29,14 +28,15 @@ set backspace=indent,eol,start
 set autoindent
 set shiftwidth=4
 set softtabstop=4
+set ts=4
 set expandtab
 set smarttab
-set textwidth=78
+" set textwidth=78
 syntax enable
 "" Appearance
 set t_Co=256
-set background=dark
-colorscheme solarized
+" set background=dark
+colorscheme molokai
 " status line
 set laststatus=2
 " set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
@@ -58,6 +58,9 @@ set smartcase
 " highlight last used search pattern.
 set hlsearch
 set incsearch
+
+"" highlight lines over 80 chars
+set colorcolumn=80
 
 "" Language spell and dictionaries
 "" ===============================
@@ -92,8 +95,8 @@ command! W w
 "" =================
 
 " emacs begin/end of line
-noremap <c-a> <home>
-noremap <c-e> <end>
+" noremap <c-a> <home>
+" noremap <c-e> <end>
 
 " radical disable arrow keys
 map <up> <nop>
@@ -228,6 +231,8 @@ function! <SID>SynStack()
 endfunc
 
 "" Plugins
+" molokai colorscheme
+let g:molokai_original = 1
 " pyflakes
 let g:pyflakes_use_quickfix = 0
 let g:pep8_map='<F6>'

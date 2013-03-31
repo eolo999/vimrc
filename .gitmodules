@@ -43,6 +43,3 @@
 [submodule "bundle/jedi-vim"]
 	path = bundle/jedi-vim
 	url = https://github.com/davidhalter/jedi-vim.git
-[submodule "bundle/sleuth"]
-	path = bundle/sleuth
-	url = https://github.com/tpope/vim-sleuth.git

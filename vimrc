@@ -36,7 +36,8 @@ syntax enable
 "" Appearance
 set t_Co=256
 " set background=dark
-colorscheme molokai
+" colorscheme molokai
+colorscheme jellybeans
 " status line
 set laststatus=2
 " set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
@@ -113,7 +114,7 @@ imap jj <ESC>
 imap kk <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
 imap <F3> <C-R>="#!/usr/bin/env python"<cr>
-imap <F4> <C-R>="if __name__ == '__main__':"<cr>
+nnoremap <F4> Oimport ipdb; ipdb.set_trace()
 call togglebg#map("<F5>")
 imap <F7> <C-R>=strftime("%d-%m-%Y")<cr>
 map  <F9> :!python %<cr>
@@ -133,6 +134,8 @@ map <leader>, :b#<cr>
 map <leader>z :sh<cr>
 " remove trailing whitespaces
 nnoremap <leader>t :%s/\s\+$//<cr>
+" remove trailing ^M
+map <leader>m :%s/<C-v><C-m>//g<cr>
 " Insert filename
 nnoremap <leader>f i<C-R>=expand("%:t:r")<cr><ESC>
 nnoremap <leader>F i<C-R>=expand("%:t")<cr><ESC>
@@ -175,6 +178,7 @@ autocmd BufReadPost *
 "" Filetypes
 "" =========
 filetype plugin indent on
+autocmd BufRead,BufNewFile *.jinja set filetype=jinja
 autocmd BufRead,BufNewFile *.log set filetype=syslog
 autocmd BufRead,BufNewFile *.pde set filetype=processing
 autocmd BufRead,BufNewFile *.txt set filetype=rst
@@ -183,6 +187,7 @@ autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2
 autocmd BufEnter *html :syntax sync fromstart
 autocmd BufRead,BufNewFile   *.gss set filetype=css
 autocmd BufWritePost *.gss call CompileGss()
+au BufNewFile,BufRead *.xt  setf xt
 "autocmd BufWinLeave *.py mkview
 "au BufWinEnter *.py silent loadview
 
@@ -241,7 +246,7 @@ let g:pep8_map='<F6>'
 "let g:SuperTabDefaultCompletionType = "context"
 "set completeopt=menuone,longest,preview
 "
-"let g:Powerline_symbols = 'fancy'
+" let g:Powerline_symbols = 'fancy'
 "
 let vimclojure#FuzzyIndent=1
 let vimclojure#HighlightBuiltins=1

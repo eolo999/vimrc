@@ -22,18 +22,6 @@
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = https://github.com/ervandew/supertab.git
-[submodule "bundle/ropevim"]
-	path = bundle/ropevim
-	url = https://github.com/sontek/rope-vim.git
-[submodule "bundle/gitv"]
-	path = bundle/gitv
-	url = https://github.com/gregsexton/gitv.git
-[submodule "bundle/pydoc"]
-	path = bundle/pydoc
-	url = https://github.com/fs111/pydoc.vim.git
-[submodule "bundle/SimpylFold"]
-	path = bundle/SimpylFold
-	url = https://github.com/tmhedberg/SimpylFold.git
 [submodule "bundle/vim-colors-solarized"]
 	path = bundle/vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
@@ -49,3 +37,12 @@
 [submodule "bundle/paredit"]
 	path = bundle/paredit
 	url = https://github.com/vim-scripts/paredit.vim.git
+[submodule "bundle/vimerl"]
+	path = bundle/vimerl
+	url = https://github.com/jimenezrick/vimerl.git
+[submodule "bundle/jedi-vim"]
+	path = bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
+[submodule "bundle/sleuth"]
+	path = bundle/sleuth
+	url = https://github.com/tpope/vim-sleuth.git

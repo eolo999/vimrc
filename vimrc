@@ -115,7 +115,6 @@ imap kk <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
 imap <F3> <C-R>="#!/usr/bin/env python"<cr>
 nnoremap <F4> Oimport ipdb; ipdb.set_trace()
-call togglebg#map("<F5>")
 imap <F7> <C-R>=strftime("%d-%m-%Y")<cr>
 map  <F9> :!python %<cr>
 map  <F10> :!gcc % && ./a.out<cr>

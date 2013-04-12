@@ -130,6 +130,8 @@ nnoremap <leader>v <C-w>v
 nnoremap gF :e <cfile><cr>
 " go to previous buffer
 map <leader>, :b#<cr>
+" open netrw file browser in current directory
+map <leader>. :e .<cr>
 " open a shell
 map <leader>z :sh<cr>
 " remove trailing whitespaces
@@ -246,15 +248,6 @@ let g:pep8_map='<F6>'
 "let g:SuperTabDefaultCompletionType = "context"
 "set completeopt=menuone,longest,preview
 "
-" let g:Powerline_symbols = 'fancy'
+"let g:Powerline_symbols = 'default'
+"set rtp+=~/.vim/bundle/vim-powerline/powerline/bindings/vim
 "
-let vimclojure#FuzzyIndent=1
-let vimclojure#HighlightBuiltins=1
-let vimclojure#HighlightContrib=1
-let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=1
-let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = "/home/eolo999/.vim/bundle/VimClojure/lib/vimclojure-nailgun-client/ng"
-
-" Paredit
-let g:paredit_mode = 0

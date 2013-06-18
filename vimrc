@@ -1,19 +1,16 @@
 " Edoardo Batini <eodbat@gmail.com> .vimrc file.
-" Sat Sep 25 17:39:35 CEST 2010
-
-" Preamble --------------------------------------------------------------- {{{
+" Sat Apr 13 13:59:40 UTC 2013
 
 " Use pathogen for plugin organization
-filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+execute pathogen#infect()
+
 set nocompatible
 
-" }}}
-" Basic options --------------------------------------------------------- 
+" Basic options
 if has("gui_running")
     set guifont=Ubuntu\ Mono\ 12
 endif
+
 set encoding=utf-8
 " Fast terminal
 set ttyfast
@@ -32,7 +29,7 @@ set ts=4
 set expandtab
 set smarttab
 " set textwidth=78
-syntax enable
+syntax on
 "" Appearance
 set t_Co=256
 " set background=dark
@@ -41,8 +38,6 @@ colorscheme jellybeans
 " status line
 set laststatus=2
 " set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
-"set statusline=%f\ %m\ %r\ Format=%{&ff}\ Type=%y\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ %{fugitive#statusline()}
-" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " relative line numbers
 " set relativenumber
 set number
@@ -60,7 +55,7 @@ set smartcase
 set hlsearch
 set incsearch
 
-"" highlight lines over 80 chars
+"" highlight 80th column
 set colorcolumn=80
 
 "" Language spell and dictionaries
@@ -73,6 +68,7 @@ set dictionary+=/usr/share/dict/british-english
 "" Unclassified
 "" ============
 " set visualbell
+set virtualedit=block
 set cursorline
 set hidden
 set showmode
@@ -87,6 +83,7 @@ set history=1000
 set lazyredraw
 
 set foldmethod=marker
+
 "" Commands
 "" ========
 command! Q q
@@ -95,11 +92,7 @@ command! W w
 "" Keyboard mappings
 "" =================
 
-" emacs begin/end of line
-" noremap <c-a> <home>
-" noremap <c-e> <end>
-
-" radical disable arrow keys
+" Dogmatic removal of arrow keys
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
@@ -109,9 +102,8 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
-imap <F1> <ESC>
-imap jj <ESC>
-imap kk <ESC>
+inoremap jk <ESC>
+inoremap jj <ESC>
 imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
 imap <F3> <C-R>="#!/usr/bin/env python"<cr>
 nnoremap <F4> Oimport ipdb; ipdb.set_trace()
@@ -158,13 +150,17 @@ nnoremap <silent> <leader>n :set nu!<cr>
 
 " Fast saving
 nmap <leader>w :w!<cr>
+nmap <leader>q :wq<cr>
 
 " Fast editing of vimrc
 map <leader>e :e! ~/.vimrc<cr>
 
-" Rope python
-map <leader>j :RopeGotoDefinition<CR>
-map <leader>r :RopeRename<CR>
+"" Abbreviations
+"" =============
+" Insert UTC date
+iabbrev dutc <esc>:r!date -u<cr>i<backspace><esc>A
+" Insert erota name and email
+iabbrev edorota Edoardo Batini <edoardo@eRota.net>
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
@@ -181,16 +177,11 @@ autocmd BufReadPost *
 filetype plugin indent on
 autocmd BufRead,BufNewFile *.jinja set filetype=jinja
 autocmd BufRead,BufNewFile *.log set filetype=syslog
-autocmd BufRead,BufNewFile *.pde set filetype=processing
 autocmd BufRead,BufNewFile *.txt set filetype=rst
-autocmd BufRead,BufNewFile *.pde setlocal ft=arduino
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2
 autocmd BufEnter *html :syntax sync fromstart
-autocmd BufRead,BufNewFile   *.gss set filetype=css
+autocmd BufRead,BufNewFile *.gss set filetype=css
 autocmd BufWritePost *.gss call CompileGss()
-au BufNewFile,BufRead *.xt  setf xt
-"autocmd BufWinLeave *.py mkview
-"au BufWinEnter *.py silent loadview
 
 "" Templates
 "" =========
@@ -204,37 +195,6 @@ function! CompileGss()
     let command = "!java -jar ~/repos/personal/google-closure-tools/closure-stylesheets/build/closure-stylesheets.jar --pretty-print "
     silent execute command . current_filename . " > " output_filename
 endfunction
-
-function! EnableSaveOnTabChange()
-    autocmd TabLeave * w
-endfunction
-function! SaveOnTabChange()
-    if modified
-        :w
-    endif
-endfunction
-" Toggle Status Line
-function! ToggleStatusLine()
-    if &laststatus != 2
-        set laststatus=2
-    else
-        set laststatus=0
-    endif
-endfunction
-" Bullet List
-function! BulletList()
-    let lineno = line(".")
-    call setline(lineno, "* " . getline(lineno))
-endfunction
-
-" Show syntax highlighting groups for word under cursor
-nmap <leader>zz :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
 
 "" Plugins
 " molokai colorscheme

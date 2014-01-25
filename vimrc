@@ -1,8 +1,8 @@
 " Edoardo Batini <eodbat@gmail.com> .vimrc file.
-" Sat Apr 13 13:59:40 UTC 2013
+" Sat Jan 25 23:52:38 CET 2014
 
 filetype off
-" Use pathogen for plugin organization
+" Use Vundle for plugin organization
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -17,14 +17,11 @@ Bundle 'jamessan/vim-gnupg'
 Bundle 'mattn/emmet-vim'
 Bundle 'mitsuhiko/vim-jinja'
 Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-classpath'
-Bundle 'tpope/vim-fireplace'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-vinegar'
 Bundle 'vim-scripts/pep8'
 
 filetype plugin indent on
-
 set nocompatible
 
 set encoding=utf-8
@@ -126,9 +123,9 @@ inoremap jj <ESC>
 inoremap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
 nnoremap <F4> Oimport ipdb; ipdb.set_trace()
 inoremap <F4> import ipdb; ipdb.set_trace()
-
 nnoremap <F5> Ovar_dump($var);exit;<esc>3b
 inoremap <F5> var_dump($var);exit;<esc>3b
+
 " Leader shortcuts
 let mapleader = ","
 let maplocalleader = '\'
@@ -185,18 +182,16 @@ autocmd BufReadPost *
 
 "" Filetypes
 "" =========
-autocmd BufEnter *html :syntax sync fromstart
 autocmd FileType html,javascript,htmldjango,jinja setlocal sw=2 ts=2 sts=2
+autocmd FileType php setlocal noexpandtab
+autocmd FileType python setlocal foldmethod=indent
+
+autocmd BufEnter *html :syntax sync fromstart
 
 autocmd BufRead,BufNewFile *.jinja set filetype=jinja
 autocmd BufRead,BufNewFile *.txt set filetype=rst
-
-autocmd FileType php setlocal noexpandtab
-
-autocmd FileType python setlocal foldmethod=indent
-" autocmd FileType python setlocal foldlevel=2
-
 autocmd BufRead,BufNewFile *.gss set filetype=css
+
 autocmd BufWritePost *.gss call CompileGss()
 
 "" Templates
@@ -213,27 +208,11 @@ function! CompileGss()
     silent execute command . current_filename . " > " output_filename
 endfunction
 
-"" Plugins
-" PEP8
-let g:pep8_map='<F6>'
 
-" molokai colorscheme
-let g:molokai_original = 1
-" pyflakes
-let g:pyflakes_use_quickfix = 0
-" supertab
-"
 " Syntastic Python Checkers
 let g:syntastic_python_checkers = ['pyflakes']
-" Syntastic Angular JS ignores
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-"let g:SuperTabDefaultCompletionType = "context"
-"set completeopt=menuone,longest,preview
-"
-
-"" Testing vim options
-set iskeyword+=-
-map Q gq
+" pyflakes
+let g:pyflakes_use_quickfix = 0
 
 
 "" New things to remember

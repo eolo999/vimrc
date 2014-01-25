@@ -1,62 +1,91 @@
 " Edoardo Batini <eodbat@gmail.com> .vimrc file.
 " Sat Apr 13 13:59:40 UTC 2013
 
+filetype off
 " Use pathogen for plugin organization
-execute pathogen#infect()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+" My bundles here:
+Bundle 'bling/vim-airline'
+Bundle 'davidhalter/jedi'
+Bundle 'davidhalter/jedi-vim'
+Bundle 'ervandew/supertab'
+Bundle 'jamessan/vim-gnupg'
+Bundle 'mattn/emmet-vim'
+Bundle 'mitsuhiko/vim-jinja'
+Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-classpath'
+Bundle 'tpope/vim-fireplace'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-vinegar'
+Bundle 'vim-scripts/pep8'
+
+filetype plugin indent on
 
 set nocompatible
 
-" Basic options
-if has("gui_running")
-    set guifont=Ubuntu\ Mono\ 12
-endif
-
 set encoding=utf-8
-" Fast terminal
+set modelines=0
+set autoindent
+set showmode
+set showcmd
+set hidden
 set ttyfast
+set ruler
+set backspace=indent,eol,start
+set number
+set laststatus=2
+
+" set undofile
+" set undoreload=10000
+
+set list
+set listchars=tab:⇒\ ,eol:¬
+set lazyredraw
+
+set showmatch
+set matchtime=3
+
+set splitbelow
+set splitright
+
+set scrolloff=3
+
+set wildmenu
+
+set cursorline
+set colorcolumn=80
+
 " Enable mouse
 set mouse=a
+
 " backup files out of the way
 set nobackup
 set backupdir=~/.vim/backup/
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-" Indentations and tabs
-set autoindent
-set shiftwidth=4
+set noswapfile
+
+" Tabs and spaces
+set tabstop=4
 set softtabstop=4
-set ts=4
+set shiftwidth=4
 set expandtab
 set smarttab
-" set textwidth=78
-syntax on
+
 "" Appearance
+syntax on
 set t_Co=256
-" set background=dark
-" colorscheme molokai
 colorscheme jellybeans
-" status line
-set laststatus=2
-" set statusline=%F%m%r%h%w\ Format=%{&ff}\ Type=%y\ [Pos=%l,%v][%p%%]\ [Len=%L]
-" relative line numbers
-" set relativenumber
-set number
-" Show special chars for tab & eol
-set list
-set listchars=tab:⇒\ ,eol:¬
 
 "" Searching
 "" =========
-" Do case insensitive matching
 set ignorecase
-" Do smart case matching
 set smartcase
-" highlight last used search pattern.
 set hlsearch
 set incsearch
 
-"" highlight 80th column
-set colorcolumn=80
 
 "" Language spell and dictionaries
 "" ===============================
@@ -65,23 +94,8 @@ set spellsuggest=5
 " Use English dictionary for word completion
 set dictionary+=/usr/share/dict/british-english
 
-"" Unclassified
-"" ============
-" set visualbell
 set virtualedit=block
-set cursorline
-set hidden
-set showmode
-" Show (partial) command
-set showcmd
-" Show matching brackets
-set showmatch
-set wildmenu
 set history=1000
-" set undofile
-" set undoreload=10000
-set lazyredraw
-
 set foldmethod=marker
 
 "" Commands
@@ -102,36 +116,40 @@ imap <down> <nop>
 imap <left> <nop>
 imap <right> <nop>
 
+" Folding
+nnoremap <space> zA
+
+" ESC from insert mode
 inoremap jk <ESC>
 inoremap jj <ESC>
-imap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
-imap <F3> <C-R>="#!/usr/bin/env python"<cr>
-nnoremap <F4> Oimport ipdb; ipdb.set_trace()
-imap <F7> <C-R>=strftime("%d-%m-%Y")<cr>
-map  <F9> :!python %<cr>
-map  <F10> :!gcc % && ./a.out<cr>
 
+inoremap <F2> <C-R>="Edoardo Batini <eodbat@gmail.com>"<cr>
+nnoremap <F4> Oimport ipdb; ipdb.set_trace()
+inoremap <F4> import ipdb; ipdb.set_trace()
+
+nnoremap <F5> Ovar_dump($var);exit;<esc>3b
+inoremap <F5> var_dump($var);exit;<esc>3b
 " Leader shortcuts
 let mapleader = ","
 let maplocalleader = '\'
 " Window splits
 nnoremap <leader>h <C-w>s
 nnoremap <leader>v <C-w>v
-" Open path under cursor
-nnoremap gF :e <cfile><cr>
+
 " go to previous buffer
 map <leader>, :b#<cr>
 " open netrw file browser in current directory
 map <leader>. :e .<cr>
-" open a shell
-map <leader>z :sh<cr>
+
 " remove trailing whitespaces
 nnoremap <leader>t :%s/\s\+$//<cr>
 " remove trailing ^M
 map <leader>m :%s/<C-v><C-m>//g<cr>
+
 " Insert filename
 nnoremap <leader>f i<C-R>=expand("%:t:r")<cr><ESC>
 nnoremap <leader>F i<C-R>=expand("%:t")<cr><ESC>
+
 " reStructuredText title/section/subsection/etc. shortcuts
 nnoremap <leader>1 yypVr=
 nnoremap <leader>2 yypVr-
@@ -139,14 +157,11 @@ nnoremap <leader>3 yypVr'
 nnoremap <leader>4 yypVr`
 nnoremap <leader>5 bi**<ESC>ea**<ESC>
 vmap <silent> <leader>b :call BulletList()<cr>
+
 " remove highlighted search
-nnoremap <silent> <leader><space> :let @/=''<cr>
-" toggle status line
-nnoremap <silent> <leader>l :call ToggleStatusLine()<cr>
+nnoremap <silent> <leader><space> :nohlsearch<cr>
 " toggle spell check
 nnoremap <silent> <leader>s :set spell!<cr>
-" toggle line numbers
-nnoremap <silent> <leader>n :set nu!<cr>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -162,30 +177,32 @@ iabbrev dutc <esc>:r!date -u<cr>i<backspace><esc>A
 " Insert erota name and email
 iabbrev edorota Edoardo Batini <edoardo@eRota.net>
 
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-" (happens when dropping a file on gvim).
-" Also don't do it when the mark is in the first line, that is the default
-" position when opening a file.
+" Return to last editing line when reopenining a file
 autocmd BufReadPost *
-\   if line("'\"") > 1 && line("'\"") <= line("$") |
-\       exe "normal! g`\"" |
-\   endif
+    \   if line("'\"") > 0 && line("'\"") <= line("$") |
+    \       execute 'normal! g`"zvzz' |
+    \   endif
 
 "" Filetypes
 "" =========
-filetype plugin indent on
-autocmd BufRead,BufNewFile *.jinja set filetype=jinja
-autocmd BufRead,BufNewFile *.log set filetype=syslog
-autocmd BufRead,BufNewFile *.txt set filetype=rst
-autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2
 autocmd BufEnter *html :syntax sync fromstart
+autocmd FileType html,javascript,htmldjango,jinja setlocal sw=2 ts=2 sts=2
+
+autocmd BufRead,BufNewFile *.jinja set filetype=jinja
+autocmd BufRead,BufNewFile *.txt set filetype=rst
+
+autocmd FileType php setlocal noexpandtab
+
+autocmd FileType python setlocal foldmethod=indent
+" autocmd FileType python setlocal foldlevel=2
+
 autocmd BufRead,BufNewFile *.gss set filetype=css
 autocmd BufWritePost *.gss call CompileGss()
 
 "" Templates
 "" =========
 autocmd BufNewFile *.py,*.erl silent! 0r ~/.vim/templates/%:e.tpl
+
 
 "" Functions
 "" =========
@@ -197,16 +214,33 @@ function! CompileGss()
 endfunction
 
 "" Plugins
+" PEP8
+let g:pep8_map='<F6>'
+
 " molokai colorscheme
 let g:molokai_original = 1
 " pyflakes
 let g:pyflakes_use_quickfix = 0
-let g:pep8_map='<F6>'
 " supertab
-"au FileType python set omnifunc=pythoncomplete#Complete
+"
+" Syntastic Python Checkers
+let g:syntastic_python_checkers = ['pyflakes']
+" Syntastic Angular JS ignores
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 "let g:SuperTabDefaultCompletionType = "context"
 "set completeopt=menuone,longest,preview
 "
-"let g:Powerline_symbols = 'default'
-"set rtp+=~/.vim/bundle/vim-powerline/powerline/bindings/vim
-"
+
+"" Testing vim options
+set iskeyword+=-
+map Q gq
+
+
+"" New things to remember
+" :jumps -> Ctrl-O Ctrl-I
+" :marks Backtick and single-quote
+" O and o in Visual Blocks
+" ~ to change lower/upper case under cursor
+
+"" Things to watch later
+" console-menus

@@ -22,6 +22,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-vinegar'
 Bundle 'vim-scripts/pep8'
+Bundle 'jplaut/vim-arduino-ino'
 
 filetype plugin indent on
 set nocompatible
@@ -196,6 +197,7 @@ autocmd BufRead,BufNewFile *.gss set filetype=css
 
 autocmd BufWritePost *.gss call CompileGss()
 
+autocmd! BufNewFile,BufRead *.pde,*.ino setlocal ft=arduino
 "" Templates
 "" =========
 autocmd BufNewFile *.py,*.erl silent! 0r ~/.vim/templates/%:e.tpl

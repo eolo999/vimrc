@@ -1,10 +1,11 @@
+<!doctype html>
 <html>
-    <head>
-        <title></title>
-        <meta name="generator" content="Vim" />
-        <meta name="author" content="Kim Schulz"/>
-    </head>
-    <body>
-        <p>Content goes here...</p>
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <title>Sample HTML5 document</title>
+    <script src="samplefile.js"></script>
+    <link rel="stylesheet" href="stylefile.css">
+  </head>
+  <body>
+  </body>
 </html>

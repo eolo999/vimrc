@@ -128,6 +128,7 @@ nnoremap <F4> Oimport ipdb; ipdb.set_trace()
 inoremap <F4> import ipdb; ipdb.set_trace()
 nnoremap <F5> Ovar_dump($var);exit;<esc>3b
 inoremap <F5> var_dump($var);exit;<esc>3b
+let g:pep8_map='<F6>'
 
 " Leader shortcuts
 let mapleader = ","
@@ -193,14 +194,14 @@ autocmd BufEnter *html :syntax sync fromstart
 
 autocmd BufRead,BufNewFile *.jinja set filetype=jinja
 autocmd BufRead,BufNewFile *.txt set filetype=rst
-autocmd BufRead,BufNewFile *.gss set filetype=css
 
+autocmd BufRead,BufNewFile *.gss set filetype=css
 autocmd BufWritePost *.gss call CompileGss()
 
 autocmd! BufNewFile,BufRead *.pde,*.ino setlocal ft=arduino
 "" Templates
 "" =========
-autocmd BufNewFile *.py,*.erl silent! 0r ~/.vim/templates/%:e.tpl
+autocmd BufNewFile *.py,*.erl,*.html silent! 0r ~/.vim/templates/%:e.tpl
 
 
 "" Functions
